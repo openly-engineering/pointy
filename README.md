@@ -2,11 +2,15 @@
 
 Simple helper functions to provide a shorthand to get a pointer to a variable holding a constant.
 
+## GoDoc
+
+https://godoc.org/github.com/mwielbut/pointy
+
 ## Installation
 
 `go get github.com/mwielbut/pointy`
 
-## Usage
+## Example
 
 ```golang
 package main
@@ -19,10 +23,10 @@ import (
 
 func main() {
 	foo := pointy.Int64(2018)
-	fmt.Println("foo contains value:", *foo)
+	fmt.Println("foo is a pointer to:", *foo)
 
 	bar := pointy.String("point to me")
-	fmt.Println("bar contains value:", *bar)
+	fmt.Println("bar is a pointer to:", *bar)
 }
 ```
 

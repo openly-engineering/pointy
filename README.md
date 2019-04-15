@@ -1,6 +1,13 @@
 # pointy
 
-Simple helper functions to provide a shorthand to get a pointer to a variable holding a constant.
+Simple helper functions to provide a shorthand to get a pointer to a variable holding a constant...because it's annoying when you have to do it hundreds of times in unit tests:
+
+```golang
+val := 42
+pointerToVal := &val
+// vs.
+pointerToVal := pointy.Int(42)
+```
 
 ## GoDoc
 

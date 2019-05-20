@@ -9,6 +9,18 @@ pointerToVal := &val
 pointerToVal := pointy.Int(42)
 ```
 
+**New in release 1.1.0**
+
+Additional helper functions have been added to safely dereference pointers
+or return a fallback value:
+
+```golang
+val := 42
+pointerToVal := &val
+// then later in your code..
+myVal := pointy.IntValue(pointerToVal, 99) // returns 42 (or 99 if pointerToVal was nil)
+```
+
 ## GoDoc
 
 https://godoc.org/github.com/mwielbut/pointy
@@ -34,29 +46,51 @@ func main() {
 
 	bar := pointy.String("point to me")
 	fmt.Println("bar is a pointer to:", *bar)
+
+	// get the value back out (new in v1.1.0)
+	barVal := pointy.StringValue(bar, "empty!")
+	fmt.Println("bar's value is:", barVal)
 }
 ```
 
 ## Available Functions
 
-`pointy.Bool(true)`  
-`pointy.Byte('a')`  
-`pointy.Complex64(42i)`  
-`pointy.Complex128(42i)`  
-`pointy.Float32(42.0)`  
-`pointy.Float64(42.0)`  
-`pointy.Int(42)`  
-`pointy.Int8(42)`  
-`pointy.Int16(42)`  
-`pointy.Int32(42)`  
-`pointy.Int64(42)`  
-`pointy.Uint(42)`  
-`pointy.Uint8(42)`  
-`pointy.Uint16(42)`  
-`pointy.Uint32(42)`  
-`pointy.Uint64(42)`  
-`pointy.String("foo")`  
-`pointy.Rune('a')`
+`Bool(x bool) *bool`
+`BoolValue(p *bool, fallback bool) bool`
+`Byte(x byte) *byte`
+`ByteValue(p *byte, fallback byte) byte `
+`Complex128(x complex128) *complex128`
+`Complex128Value(p *complex128, fallback complex128) complex128`
+`Complex64(x complex64) *complex64`
+`Complex64Value(p *complex64, fallback complex64) complex64`
+`Float32(x float32) *float32`
+`Float32Value(p *float32, fallback float32) float32`
+`Float64(x float64) *float64`
+`Float64Value(p *float64, fallback float64) float64`
+`Int(x int) *int`
+`IntValue(p *int, fallback int) int`
+`Int8(x int8) *int8`
+`Int8Value(p *int8, fallback int8) int8`
+`Int16(x int16) *int16`
+`Int16Value(p *int16, fallback int16) int16`
+`Int32(x int32) *int32`
+`Int32Value(p *int32, fallback int32) int32`
+`Int64(x int64) *int64`
+`Int64Value(p *int64, fallback int64) int64`
+`Uint(x uint) *uint`
+`UintValue(p *uint, fallback uint) uint`
+`Uint8(x uint8) *uint8`
+`Uint8Value(p *uint8, fallback uint8) uint8`
+`Uint16(x uint16) *uint16`
+`Uint16Value(p *uint16, fallback uint16) uint16`
+`Uint32(x uint32) *uint32`
+`Uint32Value(p *uint32, fallback uint32) uint32`
+`Uint64(x uint64) *uint64`
+`Uint64Value(p *uint64, fallback uint64) uint64`
+`String(x string) *string`
+`StringValue(p *string, fallback string) string`
+`Rune(x rune) *rune`
+`RuneValue(p *rune, fallback rune) rune`
 
 ## Motivation
 

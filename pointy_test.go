@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/mwielbut/pointy"
+	"github.com/openlyinc/pointy"
 	"github.com/stretchr/testify/assert"
 )
 

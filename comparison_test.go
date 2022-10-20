@@ -8,12 +8,22 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-// This example demonstrates comparing two pointers for dereferenced value equality.
+// This example demonstrates comparing two pointers using dereferenced value equality.
 func ExamplePointersValueEqual() {
 	a := pointy.Int(1)
-	b := pointy.Int(2)
-	result := pointy.PointersValueEqual(a, b)
-	fmt.Printf("comparing value quality returns: %v\n", result)
+	b := pointy.Int(1)
+	if pointy.PointersValueEqual(a, b) {
+		fmt.Println("a and b contain equal dereferenced values")
+	}
+}
+
+// This example demonstrates comparing a pointer to a value using dereferenced value equality.
+func ExamplePointerValueEqual() {
+	a := pointy.Int(1)
+	b := 1
+	if pointy.PointerValueEqual(a, b) {
+		fmt.Println("a and b contain equal dereferenced values")
+	}
 }
 
 func TestPointersValueEqual_float64(t *testing.T) {
@@ -44,4 +54,28 @@ func TestPointersValueEqual_string(t *testing.T) {
 
 	a1 := pointy.String("a")
 	assert.True(t, pointy.PointersValueEqual(a, a1), "expected both values to be equal")
+}
+
+func TestPointerValueEqual_float64(t *testing.T) {
+
+	a := pointy.Float64(1.0)
+	b := 2.0
+
+	assert.False(t, pointy.PointerValueEqual(a, b), "expected both values to be not equal")
+	assert.False(t, pointy.PointerValueEqual(nil, b), "expected both values to be not equal")
+
+	a1 := 1.0
+	assert.True(t, pointy.PointerValueEqual(a, a1), "expected both values to be equal")
+}
+
+func TestPointerValueEqual_string(t *testing.T) {
+
+	a := pointy.String("a")
+	b := "b"
+
+	assert.False(t, pointy.PointerValueEqual(a, b), "expected both values to be not equal")
+	assert.False(t, pointy.PointerValueEqual(nil, b), "expected both values to be not equal")
+
+	a1 := "a"
+	assert.True(t, pointy.PointerValueEqual(a, a1), "expected both values to be equal")
 }

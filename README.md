@@ -112,7 +112,7 @@ func main() {
 `Rune(x rune) *rune`  
 `RuneValue(p *rune, fallback rune) rune`  
 `PointersValueEqual[T comparable](a *T, b *T) bool`  
-`PointerValueEqual[T comparable](a *T, b *T) bool`  
+`PointerValueEqual[T comparable](a *T, b T) bool`  
 ## Motivation
 
 Creating pointers to literal constant values is useful, especially in unit tests. Go doesn't support simply using the address operator (&) to reference the location of e.g. `value := &int64(42)` so we're forced to [create](https://stackoverflow.com/questions/35146286/find-address-of-constant-in-go/35146856#35146856) [little](https://stackoverflow.com/questions/34197248/how-can-i-store-reference-to-the-result-of-an-operation-in-go/34197367#34197367) [workarounds](https://stackoverflow.com/questions/30716354/how-do-i-do-a-literal-int64-in-go/30716481#30716481). A common solution is to create a helper function:

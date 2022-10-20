@@ -21,6 +21,13 @@ func ExampleString() {
 	fmt.Println("bar contains value:", *bar)
 }
 
+// This example uses the new generic construct to returns a pointer to a variable
+// holding the `string` constant "point to me".
+func ExamplePointer() {
+	foo := pointy.Pointer("point to me")
+	fmt.Println("foo contains value:", *foo)
+}
+
 func TestBool(t *testing.T) {
 	var value bool = true
 	var fallback bool = false
@@ -270,4 +277,46 @@ func TestRune(t *testing.T) {
 
 	assert.Exactly(t, value, pointy.RuneValue(result, fallback))
 	assert.Exactly(t, fallback, pointy.RuneValue(nil, fallback))
+}
+
+func TestPointer_bool(t *testing.T) {
+	var value bool = true
+	var fallback bool = false
+
+	result := pointy.Pointer(true)
+
+	assert.NotNil(t, result)
+	assert.Exactly(t, &value, result)
+	assert.Exactly(t, value, *result)
+
+	assert.Exactly(t, value, pointy.PointerValue(result, fallback))
+	assert.Exactly(t, fallback, pointy.PointerValue(nil, fallback))
+}
+
+func TestPointer_String(t *testing.T) {
+	var value string = "foo"
+	var fallback string = "bar"
+
+	result := pointy.Pointer("foo")
+
+	assert.NotNil(t, result)
+	assert.Exactly(t, &value, result)
+	assert.Exactly(t, value, *result)
+
+	assert.Exactly(t, value, pointy.PointerValue(result, fallback))
+	assert.Exactly(t, fallback, pointy.PointerValue(nil, fallback))
+}
+
+func TestPointer_Int(t *testing.T) {
+	var value int = 42
+	var fallback int = 83
+
+	result := pointy.Pointer(42)
+
+	assert.NotNil(t, result)
+	assert.Exactly(t, &value, result)
+	assert.Exactly(t, value, *result)
+
+	assert.Exactly(t, value, pointy.PointerValue(result, fallback))
+	assert.Exactly(t, fallback, pointy.PointerValue(nil, fallback))
 }

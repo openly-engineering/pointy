@@ -235,3 +235,16 @@ func RuneValue(p *rune, fallback rune) rune {
 	}
 	return *p
 }
+
+// Pointer returns a pointer to a variable holding the supplied T constant
+func Pointer[T any](x T) *T {
+	return &x
+}
+
+// PointerValue returns the T value pointed to by p or fallback if p is nil
+func PointerValue[T any](p *T, fallback T) T {
+	if p == nil {
+		return fallback
+	}
+	return *p
+}

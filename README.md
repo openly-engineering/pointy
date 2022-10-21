@@ -21,6 +21,26 @@ pointerToVal := &val
 myVal := pointy.IntValue(pointerToVal, 99) // returns 42 (or 99 if pointerToVal was nil)
 ```
 
+**New in release 1.2.0**
+
+Utility functions have been added to safely compare pointers, by their dereferenced values:
+
+```golang
+
+// when both values are pointers
+a := pointy.Int(1)
+b := pointy.Int(1)
+if pointy.PointersValueEqual(a, b) {
+	fmt.Println("a and b contain equal dereferenced values")
+}
+
+// or if just one is a pointer
+a := pointy.Int(1)
+b := 1
+if pointy.PointerValueEqual(a, b) {
+	fmt.Println("a and b contain equal dereferenced values")
+}
+```
 ## GoDoc
 
 https://godoc.org/github.com/openlyinc/pointy
@@ -91,7 +111,8 @@ func main() {
 `StringValue(p *string, fallback string) string`  
 `Rune(x rune) *rune`  
 `RuneValue(p *rune, fallback rune) rune`  
-
+`PointersValueEqual[T comparable](a *T, b *T) bool`  
+`PointerValueEqual[T comparable](a *T, b T) bool`  
 ## Motivation
 
 Creating pointers to literal constant values is useful, especially in unit tests. Go doesn't support simply using the address operator (&) to reference the location of e.g. `value := &int64(42)` so we're forced to [create](https://stackoverflow.com/questions/35146286/find-address-of-constant-in-go/35146856#35146856) [little](https://stackoverflow.com/questions/34197248/how-can-i-store-reference-to-the-result-of-an-operation-in-go/34197367#34197367) [workarounds](https://stackoverflow.com/questions/30716354/how-do-i-do-a-literal-int64-in-go/30716481#30716481). A common solution is to create a helper function:

@@ -3,30 +3,31 @@
 Simple helper functions to provide a shorthand to get a pointer to a variable holding a constant...because it's annoying when you have to do it hundreds of times in unit tests:
 
 ```golang
+
 val := 42
 pointerToVal := &val
 // vs.
-pointerToVal := pointy.Int(42)
+pointerToVal := pointy.Int(42) // if using Go 1.17 or earlier w/o generics
+pointerToVal := pointy.Pointer(42) // if using Go 1.18+ w/ generics
 ```
 
-**New in release 1.1.0**
 
-Additional helper functions have been added to safely dereference pointers
-or return a fallback value:
+### New in release 1.2.0
+
+Generic implementation of the pointer-to-value and value-to-pointer functions. *Requires Go 1.18+.*
+The type-specific functions are still available for backwards-compatibility. 
 
 ```golang
-val := 42
-pointerToVal := &val
+pointerToInt := pointy.Pointer(42) 
+pointerToString := pointy.Pointer("foo") 
 // then later in your code..
-myVal := pointy.IntValue(pointerToVal, 99) // returns 42 (or 99 if pointerToVal was nil)
+intValue := pointy.PointerValue(pointerToInt, 99) 
+stringValue := pointy.PointerValue(pointerToString, "bar") 
 ```
 
-**New in release 1.2.0**
-
-Utility functions have been added to safely compare pointers, by their dereferenced values:
+Convenience functions to safely compare pointers by their dereferenced values:
 
 ```golang
-
 // when both values are pointers
 a := pointy.Int(1)
 b := pointy.Int(1)
@@ -41,6 +42,19 @@ if pointy.PointerValueEqual(a, b) {
 	fmt.Println("a and b contain equal dereferenced values")
 }
 ```
+
+### New in release 1.1.0
+
+Additional helper functions have been added to safely dereference pointers
+or return a fallback value:
+
+```golang
+val := 42
+pointerToVal := &val
+// then later in your code..
+myVal := pointy.IntValue(pointerToVal, 99) // returns 42 (or 99 if pointerToVal was nil)
+```
+
 ## GoDoc
 
 https://godoc.org/github.com/openlyinc/pointy
@@ -61,20 +75,22 @@ import (
 )
 
 func main() {
-	foo := pointy.Int64(2018)
+	foo := pointy.Pointer(2018)
 	fmt.Println("foo is a pointer to:", *foo)
 
-	bar := pointy.String("point to me")
+	bar := pointy.Pointer("point to me")
 	fmt.Println("bar is a pointer to:", *bar)
 
 	// get the value back out (new in v1.1.0)
-	barVal := pointy.StringValue(bar, "empty!")
+	barVal := pointy.PointerValue(bar, "empty!")
 	fmt.Println("bar's value is:", barVal)
 }
 ```
 
 ## Available Functions
 
+`Pointer[T any](x T) *T`  
+`PointerValue[T any](p *T, fallback T) T`  
 `Bool(x bool) *bool`  
 `BoolValue(p *bool, fallback bool) bool`  
 `Byte(x byte) *byte`  
@@ -126,3 +142,5 @@ value := createInt64Pointer(42)
 ```
 
 This package provides a library of these simple little helper functions for every native Go primitive.
+
+Made @ Openly. [Join us](https://careers.openly.com/) and use Go to build cool stuff.

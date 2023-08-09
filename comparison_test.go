@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/openlyinc/pointy"
 	"github.com/stretchr/testify/assert"
+	"go.openly.dev/pointy"
 )
 
 // This example demonstrates comparing two pointers using dereferenced value equality.

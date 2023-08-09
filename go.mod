@@ -1,4 +1,4 @@
-module github.com/openlyinc/pointy
+module go.openly.dev/pointy
 
 go 1.18
 

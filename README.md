@@ -11,6 +11,14 @@ pointerToVal := pointy.Int(42) // if using Go 1.17 or earlier w/o generics
 pointerToVal := pointy.Pointer(42) // if using Go 1.18+ w/ generics
 ```
 
+### New in release 2.0.0
+
+🚨 Breaking change
+
+Package has changed to `go.openly.dev`. Please use 
+```
+import "go.openly.dev/pointy"
+```
 
 ### New in release 1.2.0
 
@@ -57,11 +65,11 @@ myVal := pointy.IntValue(pointerToVal, 99) // returns 42 (or 99 if pointerToVal 
 
 ## GoDoc
 
-https://godoc.org/github.com/openlyinc/pointy
+[https://godoc.org/github.com/openly-engineering/pointy](https://pkg.go.dev/github.com/openly-engineering/pointy)
 
 ## Installation
 
-`go get github.com/openlyinc/pointy`
+`go get go.openly.dev/pointy`
 
 ## Example
 
@@ -71,7 +79,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/openlyinc/pointy"
+	"go.openly.dev/pointy"
 )
 
 func main() {

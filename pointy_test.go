@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/openlyinc/pointy"
 	"github.com/stretchr/testify/assert"
+	"go.openly.dev/pointy"
 )
 
 // This example returns a pointer to a variable holding the `int64` constant `2018`.

@@ -248,3 +248,27 @@ func PointerValue[T any](p *T, fallback T) T {
 	}
 	return *p
 }
+
+// Slice returns a slice of pointers to variables holding the supplied T constant
+func Slice[T any](s []T) []*T {
+	out := make([]*T, len(s))
+	for i := range s {
+		out[i] = &s[i]
+	}
+
+	return out
+}
+
+// SliceValue returns a slice of pointed values or fallback if s is nil
+func SliceValue[T any](s []*T, fallback []T) []T {
+	if s == nil {
+		return fallback
+	}
+
+	out := make([]T, len(s))
+	for i := range s {
+		out[i] = *s[i]
+	}
+
+	return out
+}

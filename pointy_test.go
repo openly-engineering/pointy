@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+
 	"go.openly.dev/pointy"
 )
 
@@ -319,4 +320,20 @@ func TestPointer_Int(t *testing.T) {
 
 	assert.Exactly(t, value, pointy.PointerValue(result, fallback))
 	assert.Exactly(t, fallback, pointy.PointerValue(nil, fallback))
+}
+
+func TestSlice(t *testing.T) {
+	slice := []int{1, 2, 3}
+	fallback := []int{4, 5, 6}
+
+	result := pointy.Slice(slice)
+	assert.NotNil(t, result)
+
+	for i := range slice {
+		assert.Exactly(t, &slice[i], result[i])
+		assert.Exactly(t, slice[i], *result[i])
+	}
+
+	assert.Exactly(t, slice, pointy.SliceValue(result, fallback))
+	assert.Exactly(t, fallback, pointy.SliceValue(nil, fallback))
 }

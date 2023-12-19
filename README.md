@@ -99,6 +99,8 @@ func main() {
 
 `Pointer[T any](x T) *T`  
 `PointerValue[T any](p *T, fallback T) T`  
+`Slice[T any](s []T) []*T`  
+`SliceValue[T any](s []*T, fallback []T) []T`  
 `Bool(x bool) *bool`  
 `BoolValue(p *bool, fallback bool) bool`  
 `Byte(x byte) *byte`  
